@@ -25,9 +25,11 @@ class StimulusReflex::TestCase < ActiveSupport::TestCase
     def build_reflex(opts = {})
       channel = opts.fetch(:channel, TestChannel.new(opts.fetch(:connection, {})))
       element = opts.fetch(:element, StimulusReflex::Element.new)
+      version = StimulusReflex::VERSION
 
       self.class.reflex_class.new(
-        channel, element: element, url: opts.fetch(:url, ""), method_name: method_name_from_opts(opts), params: opts.fetch(:params, {})
+        channel, element: element, url: opts.fetch(:url, ""), method_name: method_name_from_opts(opts), params: opts.fetch(:params, {}),
+                 client_attributes: { version: version }
       )
     end
 
